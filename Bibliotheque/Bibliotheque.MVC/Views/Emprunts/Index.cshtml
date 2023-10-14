@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Bibliotheque.MVC.Models.Emprunt>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h1>Liste des emprunts</h1>
+
+<a class="btn btn-primary" asp-action="Create">Ajouter un nouveau emprunt</a>
+
+@if((bool)ViewData["filtre"]) {
+    <a class="btn btn-secondary" asp-action="Index">Afficher l'historique des emprunts</a> 
+}
+else {
+    <a class="btn btn-secondary" asp-action="Index" asp-route-filtre="true">Afficher les emprunts en cours</a>
+}
+
+
+<br /><br />
+
+<table class="table table-striped table-dark table-bordered text-center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEmprunt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRetourLimite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRetour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Livre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usager)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateEmprunt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRetourLimite)
+                </td>
+                @if (item.DateRetour == null)
+                {
+                    <td>S.O.</td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateRetour)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Livre.Titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usager.Nom)
+                </td>
+                @if(item.DateRetour != null)
+                {
+                    <td>
+                        <a class="text-warning" asp-action="Details" asp-route-id="@item.ID">Détails</a> |
+                        <a class="text-warning" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a class="text-warning" asp-action="Edit" asp-route-id="@item.ID">Retourner</a> |
+                        <a class="text-warning" asp-action="Details" asp-route-id="@item.ID">Détails</a> |
+                        <a class="text-warning" asp-action="Delete" asp-route-id="@item.ID">Supprimer</a>
+                    </td>
+                }
+            </tr>
+}
+    </tbody>
+</table>

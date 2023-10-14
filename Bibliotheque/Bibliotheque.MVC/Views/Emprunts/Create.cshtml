@@ -1,0 +1,38 @@
+﻿@model Bibliotheque.MVC.Models.RequeteEmprunt
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Ajouter un emprunt</h1>
+
+<h4>Emprunt</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UsagerID" class="control-label">Usager</label>
+                <select asp-for="UsagerID" class ="form-control" asp-items="ViewBag.UsagerID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="LivreID" class="control-label">Livre</label>
+                <select asp-for="LivreID" class ="form-control" asp-items="ViewBag.LivreID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste des emprunts</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

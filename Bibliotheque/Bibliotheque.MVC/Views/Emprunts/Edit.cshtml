@@ -1,0 +1,56 @@
+﻿@model Bibliotheque.MVC.Models.Emprunt
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Retour d'un emprunt</h1>
+
+<h4>Emprunt #@Model.ID</h4>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <dl class="row">
+                <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Livre)
+                </dt>
+                <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Livre.Titre)
+                </dd>
+                <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Usager)
+                </dt>
+                <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Usager.Nom)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.DateRetour)
+                </dt>
+                <dd class="col-sm-8">
+                    @DateTime.Now
+                </dd>
+            </dl>
+            
+            <p>
+                <strong><em>L'emprunt va être retourné après le click sur le bouton 'Confirmer'</em></strong>
+            </p>
+            
+            <div class="form-group">
+                <input type="submit" value="Confirmer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste des emprunts</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
